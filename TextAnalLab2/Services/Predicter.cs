@@ -11,8 +11,9 @@ namespace TextAnalLab2
             IEnumerable<NgramProb>[] ngramProbCollection)
         {
             var repCollection = PredictNextWords(inputNgramCollection, ngramProbCollection);
-            return repCollection.OrderByDescending(x => x.prop).Select(x => x.name).Distinct().Take(new Random().Next(1,4))
-                .Aggregate(string.Empty, (x, y) => x.LastOrDefault() == ' ' ? x + y : x + " " + y);
+            return repCollection.OrderByDescending(x => x.prop).Select(x => x.name).Distinct()
+                .Take(new Random().Next(1, 4))
+                .Aggregate(string.Empty, (x, y) => x.Trim() + " " + y);
         }
 
         private IEnumerable<(string name, decimal prop)> PredictNextWords(
