@@ -17,7 +17,7 @@ namespace Text.Anal.Lab2
             var service = _mocker.CreateInstance<NGramBuilder>();
             var data = new[] { "мама", "мыла", "раму", "долго", "долго" };
             // Act
-            var result = service.BuildNGram(data, 4);
+            var result = service.BuildNGrams(data, 4);
 
             // Assert
             result.Should().NotBeNull();
@@ -32,7 +32,7 @@ namespace Text.Anal.Lab2
             var service = _mocker.CreateInstance<NGramBuilder>();
             var data = new[] { "мама", "мыла", "раму", "долго", "долго" };
             // Act
-            var result = service.BuildNGram(data, 3);
+            var result = service.BuildNGrams(data, 3);
 
             // Assert
             result.Should().NotBeNull();
@@ -48,7 +48,7 @@ namespace Text.Anal.Lab2
             var data = new[] { "мама", "мыла", "раму", "долго", "долго" };
             // Act
             var result = Enumerable.Range(2, 3).AsParallel().Select(
-                x => service.BuildNGram(data, x)).OrderBy(x => x.First().Count()).ToArray();
+                x => service.BuildNGrams(data, x)).OrderBy(x => x.First().Count()).ToArray();
 
             // Assert
             result.Should().NotBeNull();

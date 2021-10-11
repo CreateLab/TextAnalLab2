@@ -5,13 +5,15 @@ namespace TextAnalLab2
 {
     public class NGramBuilder
     {
-        public IEnumerable<IEnumerable<T>> BuildNGram<T>(IEnumerable<T> enumerable, int count)
+        public IEnumerable<IEnumerable<T>> BuildNGrams<T>(IEnumerable<T> enumerable, int ngramSize)
         {
-            var enumerable1 = enumerable.ToList();
-            for (var i = 0; i <= enumerable1.Count - count; i++)
+            var list = enumerable.ToList();
+            for (var i = 0; i <= list.Count - ngramSize; i++)
             {
-                yield return enumerable1.Skip(i).Take(count);
+                yield return list.Skip(i).Take(ngramSize);
             }
         }
+
+       
     }
 }

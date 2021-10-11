@@ -29,7 +29,7 @@ namespace TextAnalLab2
         {
             var lastNgram = ngrams.Last();
             var selectedProb =
-                ngramProbCollection.First(x => x.First<NgramProb>().Ngrams.Count() == lastNgram.Count() + 1);
+                ngramProbCollection.First(x => x.First<NgramProb>().Ngram.Count() == lastNgram.Count() + 1);
             return PredictNextWordForConcreteNgram(lastNgram, selectedProb);
         }
 
@@ -43,26 +43,26 @@ namespace TextAnalLab2
             {
                 if (CompareNgram(ngramProb, enumerable))
                 {
-                    if (supportedWords.ContainsKey(ngramProb.Ngrams.Last()))
+                    if (supportedWords.ContainsKey(ngramProb.Ngram.Last()))
                     {
-                        if (ngramProb.Ngrams.Last().Length > 2)
+                        if (ngramProb.Ngram.Last().Length > 2)
                         {
-                            supportedWords[ngramProb.Ngrams.Last()] += rate * rate * rate * ngramProb.Probability;
+                            supportedWords[ngramProb.Ngram.Last()] += rate * rate * rate * ngramProb.Count;
                         }
                         else
                         {
-                            supportedWords[ngramProb.Ngrams.Last()] += ngramProb.Probability;
+                            supportedWords[ngramProb.Ngram.Last()] += ngramProb.Count;
                         }
                     }
                     else
                     {
-                        if (ngramProb.Ngrams.Last().Length > 2)
+                        if (ngramProb.Ngram.Last().Length > 2)
                         {
-                            supportedWords.Add(ngramProb.Ngrams.Last(), rate * rate * rate * ngramProb.Probability);
+                            supportedWords.Add(ngramProb.Ngram.Last(), rate * rate * rate * ngramProb.Count);
                         }
                         else
                         {
-                            supportedWords.Add(ngramProb.Ngrams.Last(), ngramProb.Probability);
+                            supportedWords.Add(ngramProb.Ngram.Last(), ngramProb.Count);
                         }
                     }
                 }
@@ -77,7 +77,7 @@ namespace TextAnalLab2
         {
             var res = true;
             var ngrams = lastNgram as string[] ?? lastNgram.ToArray();
-            var ngramProbNgrams = ngramProb.Ngrams as string[] ?? ngramProb.Ngrams.ToArray();
+            var ngramProbNgrams = ngramProb.Ngram as string[] ?? ngramProb.Ngram.ToArray();
             for (var i = 0; i < ngrams.Length; i++)
             {
                 res = res && ngrams[i] == ngramProbNgrams[i];

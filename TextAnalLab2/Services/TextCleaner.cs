@@ -11,19 +11,17 @@ namespace TextAnalLab2
 
         public IEnumerable<string> Clear(string data)
         {
-            return data.Split().Where(x => _regex.IsMatch(x)).Select(x => ClearWord(x.ToLowerInvariant()));
+            return data.Split().Where(x => _regex.IsMatch(x)).Select(x => ClearString(x.ToLowerInvariant()));
         }
 
-        private string ClearWord(string toLowerInvariant)
+        private string ClearString(string s)
         {
-            var spes = new[]
-            {
-                "“", "”", "-", "’", "‘", "\"", "<", ">", "—", "[", "]", ";", "*", ":", ".", "\n", ".", "\"",
-                "–", "*", "«", "»", "=", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
-                ",", "(", ")", "!", "?" , "…"
-            };
+            return Regex.Replace(s, @"[\W]", x => Regex.IsMatch(x.Value, @"\s") ? " " : string.Empty);
+        }
 
-            return spes.Aggregate(toLowerInvariant, (current, s) => current.Replace(s, string.Empty));
+        public IEnumerable<string> SplitToSentence(string data)
+        {
+            return data.Split(".", StringSplitOptions.RemoveEmptyEntries).Select(ClearString);
         }
     }
 }

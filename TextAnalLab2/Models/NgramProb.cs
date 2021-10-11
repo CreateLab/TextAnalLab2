@@ -5,7 +5,7 @@ namespace TextAnalLab2.Models
 {
     public class NgramProb
     {
-        public IEnumerable<string> Ngrams  { get; set; }
-        public decimal Probability { get; set; }
+        public IEnumerable<string> Ngram  { get; set; }
+        public decimal Count { get; set; }
     }
 }
